@@ -518,7 +518,7 @@ def wPred(pred):
             SigCross=SigWWp
 
             # Get posterior parameters
-            W=scipy.linalg.solve(SigData,SigCross,sym_pos=True)
+            W=scipy.linalg.solve(SigData,SigCross,assume_a='pos')
             Myhat[jj*npred:(jj+1)*npred] = W.T @ w[jj*m:(jj+1)*m,0:1]
             if data.mean_basis is not None:
                 if data.dummy_x or pred.xpred is None:
@@ -717,7 +717,7 @@ def uvPred(pred):
             SigCross[n*(pv+pu):,    npred*pv:]=SigWUx
 
         # Get posterior parameters
-        W = scipy.linalg.solve(SigData, SigCross, sym_pos=True)
+        W = scipy.linalg.solve(SigData, SigCross, assume_a='pos')
         if num.scalar_out:
             Myhat = W.T @ num.uw
         else:
