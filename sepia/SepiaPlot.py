@@ -47,6 +47,7 @@ def theta_pairs(samples_dict,design_names=None,native=False,lims=None,theta_ref=
         g.map_diag(sns.histplot, kde=True);
         if lims is not None:
             # Undo sharing of axes
+            """
             for i in range(n_theta):
                 [g.diag_axes[i].get_shared_x_axes().remove(axis) for axis in g.axes.ravel()];
                 for j in range(n_theta):
@@ -54,6 +55,7 @@ def theta_pairs(samples_dict,design_names=None,native=False,lims=None,theta_ref=
                     [g.axes[i, j].get_shared_y_axes().remove(axis) for axis in g.axes.ravel()];
                     [g.axes[i, j].get_shared_x_axes().remove(axis) for axis in g.diag_axes.ravel()];
                     [g.axes[i, j].get_shared_y_axes().remove(axis) for axis in g.diag_axes.ravel()];
+            """
             # Set limits
             for i in range(n_theta):
                 for j in range(n_theta):
@@ -153,12 +155,12 @@ def mcmc_trace(samples_dict,theta_names=None,start=0,end=None,n_to_plot=500,by_g
             n_lines = min(samples_dict[k].shape[1],max_print)
             if n_lines > 1:
                 for j in range(n_lines):
-                    sns.lineplot(x=plot_idx,y=samples_dict[k][plot_idx,j], palette="tab10", linewidth=.75, ax = axs[i],
+                    sns.lineplot(x=plot_idx,y=samples_dict[k][plot_idx,j], linewidth=.75, ax = axs[i],
                                 label= theta_names[j] if (i==0 and theta_names is not None) else k+str(j+1))
                 axs[i].set_ylabel(k)
                 lgds.append(axs[i].legend(bbox_to_anchor=(1.025, 1), loc='upper left', borderaxespad=0., ncol=int(np.ceil(n_lines/5))))
             else:
-                sns.lineplot(x=plot_idx,y=samples_dict[k][plot_idx,0], palette="tab10", linewidth=.75, ax = axs[i])
+                sns.lineplot(x=plot_idx,y=samples_dict[k][plot_idx,0], linewidth=.75, ax = axs[i])
                 axs[i].set_ylabel(theta_names[0] if (i==0 and theta_names is not None) else k)
         if save is not None: plt.savefig(save,dpi=300,bbox_extra_artists=lgds, bbox_inches='tight')
         return fig
