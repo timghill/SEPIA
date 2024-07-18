@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import seaborn as sns
+#import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import numpy as np
 import scipy as sp
 
-sns.set(style="ticks")
+#sns.set(style="ticks")
 
 def theta_pairs(samples_dict,design_names=None,native=False,lims=None,theta_ref=None,save=None):
     """
