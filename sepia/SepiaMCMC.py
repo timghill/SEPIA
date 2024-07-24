@@ -44,9 +44,9 @@ class SepiaMCMC:
         """
         self.aCorr = 1
         if self.stepType == 'Uniform':
-            cand = self.parent.val[arr_ind] + self.stepParam[arr_ind] * np.random.uniform(-0.5, 0.5)
+            cand = self.parent.val[arr_ind] + self.stepParam[arr_ind] * 0.5*np.random.randn()
         elif self.stepType == 'BetaRho':
-            cand = np.exp(-0.25 * self.parent.val[arr_ind]) + self.stepParam[arr_ind] * np.random.uniform(-0.5, 0.5)
+            cand = np.exp(-0.25 * self.parent.val[arr_ind]) + self.stepParam[arr_ind] * 0.5*np.random.randn()
             if cand <= 0:
                 cand = np.inf
             else:
@@ -55,7 +55,7 @@ class SepiaMCMC:
             if do_propMH:
                 cval = self.parent.val[arr_ind]
                 w = np.max([1, cval/3])
-                dval = cval + w * np.random.uniform(-1, 1)
+                dval = cval + w * np.random.randn()
                 w1 = np.max([1, dval/3])
                 if cval > (dval+w1):
                     aCorr = False # never will accept in this case
@@ -64,7 +64,7 @@ class SepiaMCMC:
                 cand = dval
                 self.aCorr = aCorr
             else:
-                cand = self.parent.val[arr_ind] + self.stepParam[arr_ind] * np.random.uniform(-0.5, 0.5)
+                cand = self.parent.val[arr_ind] + self.stepParam[arr_ind] * 0.5*np.random.randn()
         else:
             raise ValueError('Unknown stepType')
         return cand
